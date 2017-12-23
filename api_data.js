@@ -1,7 +1,193 @@
 define({ "api": [
   {
     "type": "get",
-    "url": "/user/OTP/",
+    "url": "/admin/API",
+    "title": "Api",
+    "group": "API",
+    "description": "<p>Get all api credentials.</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n    \"geocoding\":{\n        \"id\": Client id\n    },\n    \"email\":{\n        \"id\": Client id\n    },\n    \"paypal\":{\n        \"id\": Client id,\n        \"secret\": Client secret\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "groupTitle": "API",
+    "name": "GetAdminApi"
+  },
+  {
+    "type": "post",
+    "url": "/admin/API/update/email",
+    "title": "Email Api",
+    "group": "API",
+    "description": "<p>Update email Api.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Sendgrid client id.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "groupTitle": "API",
+    "name": "PostAdminApiUpdateEmail"
+  },
+  {
+    "type": "post",
+    "url": "/admin/API/update/geocoding",
+    "title": "Geocoding Api",
+    "group": "API",
+    "description": "<p>Update geocoding Api.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Google geocoding client id.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "groupTitle": "API",
+    "name": "PostAdminApiUpdateGeocoding"
+  },
+  {
+    "type": "post",
+    "url": "/admin/API/update/paypal",
+    "title": "Paypal Api",
+    "group": "API",
+    "description": "<p>Update paypal Api.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>paypal client id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "secret",
+            "description": "<p>paypal client secret.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "groupTitle": "API",
+    "name": "PostAdminApiUpdatePaypal"
+  },
+  {
+    "type": "get",
+    "url": "/ad/rate",
+    "title": "Advertisement",
+    "group": "Advertisement",
+    "description": "<p>Get advertisement commission rates($) for different coverage of operation.</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "city",
+            "description": "<p>City coverage commission.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "state",
+            "description": "<p>State coverage commission.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "country",
+            "description": "<p>Country coverage commission.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/AdvertisementController.java",
+    "groupTitle": "Advertisement",
+    "name": "GetAdRate"
+  },
+  {
+    "type": "get",
+    "url": "/admin/ad/update",
+    "title": "Update Ad",
+    "group": "Advertisement",
+    "description": "<p>Update advertisement commission.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "amt",
+            "description": "<p>Amount in $.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "allowedValues": [
+              "\"1->City coverage\"",
+              "\"2->State coverage\"",
+              "\"3->Country coverage\"",
+              "\"4->International coverage\""
+            ],
+            "optional": false,
+            "field": "type",
+            "description": "<p>Coverage of advertisement.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "-",
+            "description": "<p>&quot;type&quot; parameter is invalid.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/Admin/AdvertisementController.java",
+    "groupTitle": "Advertisement",
+    "name": "GetAdminAdUpdate"
+  },
+  {
+    "type": "get",
+    "url": "/user/OTP",
     "title": "Email Verification",
     "description": "<p>Verify email address after registration</p>",
     "group": "Auth",
@@ -88,7 +274,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/user/auth/",
+    "url": "/user/auth",
     "title": "User Login",
     "group": "Auth",
     "success": {
@@ -132,7 +318,7 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "password",
-            "description": "<p>password</p>"
+            "description": "<p>Password</p>"
           }
         ]
       }
@@ -164,7 +350,7 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/user/new/",
+    "url": "/user/new",
     "title": "Register",
     "description": "<p>New User Registration</p>",
     "group": "Auth",
@@ -188,9 +374,15 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "String",
+            "allowedValues": [
+              "\"customer\"",
+              "\"seller\"",
+              "\"courier\"",
+              "\"designer\""
+            ],
             "optional": false,
             "field": "type",
-            "description": "<p>One of the following user types: customer/seller/courier/designer</p>"
+            "description": "<p>User types.</p>"
           },
           {
             "group": "Parameter",
@@ -287,7 +479,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/card/",
+    "url": "/card",
     "title": "Card Details",
     "description": "<p>Get the details of a card design.</p>",
     "group": "Cards",
@@ -298,8 +490,20 @@ define({ "api": [
             "group": "Parameter",
             "type": "Long",
             "optional": false,
-            "field": "cid",
+            "field": "id",
             "description": "<p>card id.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Card identified by &quot;id&quot; is not found.</p>"
           }
         ]
       }
@@ -308,7 +512,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response",
-          "content": "[{\n\"name\":\"Card name\",\n\"sid\":\"seller id\",\n\"sname\":\"seller name\",\n\"id\":card id,\n\"colors\":[card colors in hexadecimal],\n\"finishes\":[paper finish names],\n\"papers\":[paper quality names],\n\"images\":[card images],\n\"subCategories\":[card sub-categories],\n\"price\":card price,\n\"category\": card category,\n\"side\": 1->front side; 2->back side,\n\"discountedPrice\":price after any discount. Null if no discount available,",
+          "content": "{\n\"name\":\"Card name\",\n\"sid\":\"seller id\",\n\"sname\":\"seller name\",\n\"id\":card id,\n\"colors\":[card colors in hexadecimal],\n\"finishes\":[paper finish names],\n\"papers\":[paper quality names],\n\"images\":[card images],\n\"subCategories\":[card sub-categories],\n\"price\":card price,\n\"category\": card category,\n\"side\": 1->front side; 2->back side,\n\"discountedPrice\":price after any discount. Null if no discount available\n}",
           "type": "json"
         }
       ]
@@ -430,5 +634,133 @@ define({ "api": [
     "filename": "src/main/java/com/neo/Controller/CardsController.java",
     "groupTitle": "Cards",
     "name": "GetCardFilter"
+  },
+  {
+    "type": "get",
+    "url": "/category",
+    "title": "Category & sub-category",
+    "description": "<p>Category &amp; sub-category list.</p>",
+    "group": "Category",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": true,
+            "field": "id",
+            "description": "<p>category id - to obtain sub categories of a particular category. If not provided, returns all categories.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "[{\n\"id\": \"category id\",\n\"name\": \"category name\",\n\"subCategories\":[{\n\"id\": \"sub-category id\",\n\"name\": \"sub-category name\"\n}]\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Category with the given id (if provided) is not found</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/CategoryController.java",
+    "groupTitle": "Category",
+    "name": "GetCategory"
+  },
+  {
+    "type": "get",
+    "url": "/subcategory",
+    "title": "Sub-categories",
+    "group": "Category",
+    "description": "<p>Get the sub-categories of the category identified by &quot;catid&quot;.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "catid",
+            "description": "<p>Category id</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Category not found/wrong id.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "[{\n    \"id\": sub-category id,\n    \"name\": sub-category name\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/SubCategoryController.java",
+    "groupTitle": "Category",
+    "name": "GetSubcategory"
+  },
+  {
+    "type": "get",
+    "url": "/commission",
+    "title": "Commission",
+    "group": "Commission",
+    "description": "<p>Get commission rates(%) for different service providers.</p>",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "seller",
+            "description": "<p>Seller Commission.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "designer",
+            "description": "<p>Designer Commission.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "courier",
+            "description": "<p>Courier Commission.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "src/main/java/com/neo/Controller/CommissionController.java",
+    "groupTitle": "Commission",
+    "name": "GetCommission"
   }
 ] });
