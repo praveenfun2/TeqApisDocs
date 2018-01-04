@@ -15,7 +15,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "filename": "./src/main/java/com/neo/Controller/Admin/APIController.java",
     "groupTitle": "API",
     "name": "GetAdminApi"
   },
@@ -39,7 +39,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "filename": "./src/main/java/com/neo/Controller/Admin/APIController.java",
     "groupTitle": "API",
     "name": "PostAdminApiUpdateEmail"
   },
@@ -63,7 +63,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "filename": "./src/main/java/com/neo/Controller/Admin/APIController.java",
     "groupTitle": "API",
     "name": "PostAdminApiUpdateGeocoding"
   },
@@ -94,7 +94,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/Admin/APIController.java",
+    "filename": "./src/main/java/com/neo/Controller/Admin/APIController.java",
     "groupTitle": "API",
     "name": "PostAdminApiUpdatePaypal"
   },
@@ -132,7 +132,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/AdvertisementController.java",
+    "filename": "./src/main/java/com/neo/Controller/AdvertisementController.java",
     "groupTitle": "Advertisement",
     "name": "GetAdRate"
   },
@@ -181,7 +181,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/Admin/AdvertisementController.java",
+    "filename": "./src/main/java/com/neo/Controller/Admin/AdvertisementController.java",
     "groupTitle": "Advertisement",
     "name": "GetAdminAdUpdate"
   },
@@ -232,7 +232,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/UserController.java",
+    "filename": "./src/main/java/com/neo/Controller/UserController.java",
     "groupTitle": "Auth",
     "name": "GetUserOtp"
   },
@@ -240,7 +240,7 @@
     "type": "get",
     "url": "/user/resetPassword/",
     "title": "Password token",
-    "description": "<p>Generate token for password resetting</p>",
+    "description": "<p>Generate token for password resetting. This token will be sent to the provided email address.</p>",
     "group": "Auth",
     "parameter": {
       "fields": {
@@ -268,7 +268,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/UserController.java",
+    "filename": "./src/main/java/com/neo/Controller/UserController.java",
     "groupTitle": "Auth",
     "name": "GetUserResetpassword"
   },
@@ -344,7 +344,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/UserController.java",
+    "filename": "./src/main/java/com/neo/Controller/UserController.java",
     "groupTitle": "Auth",
     "name": "PostUserAuth"
   },
@@ -415,7 +415,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/UserController.java",
+    "filename": "./src/main/java/com/neo/Controller/UserController.java",
     "groupTitle": "Auth",
     "name": "PostUserNew"
   },
@@ -473,9 +473,37 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/UserController.java",
+    "filename": "./src/main/java/com/neo/Controller/UserController.java",
     "groupTitle": "Auth",
     "name": "PostUserResetpassword"
+  },
+  {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
+    "filename": "./doc/main.js",
+    "group": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_main_js",
+    "groupTitle": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_main_js",
+    "name": ""
   },
   {
     "type": "get",
@@ -518,7 +546,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/CardsController.java",
+    "filename": "./src/main/java/com/neo/Controller/CardsController.java",
     "groupTitle": "Cards",
     "name": "GetCard"
   },
@@ -631,9 +659,192 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/CardsController.java",
+    "filename": "./src/main/java/com/neo/Controller/CardsController.java",
     "groupTitle": "Cards",
     "name": "GetCardFilter"
+  },
+  {
+    "type": "get",
+    "url": "/seller/card",
+    "title": "Card Designs.",
+    "description": "<p>Get all the card designs uploaded by the seller.</p>",
+    "group": "Cards",
+    "error": {
+      "fields": {
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Card identified by &quot;id&quot; is not found.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "{\n\"fCards\":[{\n\"name\":\"Card name\",\n\"id\":card id,\n\"finishes\":[paper finish names],\n\"papers\":[paper quality names],\n\"images\":[card images],\n\"subCategories\":[card sub-categories],\n\"price\":card price,\n\"category\": card category,\n\"layout\": 1->Landscape, 2->Portrait,\n}],\n\"bCards\":[{\n\"name\":\"Card name\",\n\"id\":card id,\n\"price\":card price,\n\"layout\": 1->Landscape, 2->Portrait,\n\"images\":[card images]\n}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "GetSellerCard"
+  },
+  {
+    "type": "get",
+    "url": "/seller/card/remove",
+    "title": "Remove Card design.",
+    "description": "<p>Remove seller uploaded card design.</p>",
+    "group": "Cards",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "cid",
+            "description": "<p>card id.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>User is unauthorized to delete this card.</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Card identified by &quot;id&quot; is not found.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "GetSellerCardRemove"
+  },
+  {
+    "type": "post",
+    "url": "/seller/card/new",
+    "title": "New Card",
+    "description": "<p>Upload a new card desgin.</p>",
+    "group": "Cards",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "image",
+            "description": "<p>Base64 encoded image data. Image may contain transparent data. All the transparent points in the image will be filled with chosen colors.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String[]",
+            "optional": false,
+            "field": "color",
+            "description": "<p>Hexadecimal color array to fill the image.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "layout",
+            "description": "<p>1-&gt;Landscape, 2-&gt;Portrait.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "side",
+            "description": "<p>1-&gt;Front side, 2-&gt;Back Side.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "price",
+            "description": "<p>Price of the card. Should be only upto 2 decimal places precise.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Card name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "cat",
+            "description": "<p>Category id allotted to the card. Applicable only for front side card design.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long[]",
+            "optional": false,
+            "field": "subcat",
+            "description": "<p>Sub-category ids allotted to the card. Applicable only for front side card design.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long[]",
+            "optional": false,
+            "field": "paper",
+            "description": "<p>Seller specific paper Quality ids allotted to the card. Applicable only for front side card design.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long[]",
+            "optional": false,
+            "field": "finish",
+            "description": "<p>Seller specific paper Finish ids allotted to the card. Applicable only for front side card design.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Seller is not authorized to upload cards.</p>"
+          }
+        ],
+        "503": [
+          {
+            "group": "503",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image Service is not responding.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "PostSellerCardNew"
   },
   {
     "type": "get",
@@ -676,7 +887,7 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/CategoryController.java",
+    "filename": "./src/main/java/com/neo/Controller/CategoryController.java",
     "groupTitle": "Category",
     "name": "GetCategory"
   },
@@ -721,7 +932,7 @@
       ]
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/SubCategoryController.java",
+    "filename": "./src/main/java/com/neo/Controller/SubCategoryController.java",
     "groupTitle": "Category",
     "name": "GetSubcategory"
   },
@@ -759,8 +970,84 @@
       }
     },
     "version": "0.0.0",
-    "filename": "src/main/java/com/neo/Controller/CommissionController.java",
+    "filename": "./src/main/java/com/neo/Controller/CommissionController.java",
     "groupTitle": "Commission",
     "name": "GetCommission"
+  },
+  {
+    "type": "get",
+    "url": "/image/card/{filename}",
+    "title": "Card image",
+    "description": "<p>Get the card image with name &quot;filename&quot;.</p>",
+    "group": "Images",
+    "error": {
+      "fields": {
+        "503": [
+          {
+            "group": "503",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image Service not responding.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "byte[]",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image data in bytes.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/ImageController.java",
+    "groupTitle": "Images",
+    "name": "GetImageCardFilename"
+  },
+  {
+    "type": "get",
+    "url": "/finish",
+    "title": "Paper Finishes",
+    "description": "<p>All paper finishes list.</p>",
+    "group": "Paper_Finish",
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "[{\n\"id\": \"paper finish id\",\n\"name\": \"paper finish name\",\n\"description\":\"Description of paper finish\"\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/FinishController.java",
+    "groupTitle": "Paper_Finish",
+    "name": "GetFinish"
+  },
+  {
+    "type": "get",
+    "url": "/paper",
+    "title": "Paper Qualities",
+    "description": "<p>All paper qualities list.</p>",
+    "group": "Paper_Quality",
+    "success": {
+      "examples": [
+        {
+          "title": "Response",
+          "content": "[{\n\"id\": \"paper quality id\",\n\"name\": \"paper quality name\",\n\"description\":\"Description of paper quality\"\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/PaperController.java",
+    "groupTitle": "Paper_Quality",
+    "name": "GetPaper"
   }
 ]
