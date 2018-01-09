@@ -187,57 +187,6 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/user/OTP",
-    "title": "Email Verification",
-    "description": "<p>Verify email address after registration</p>",
-    "group": "Auth",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>Email Address</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "otp",
-            "description": "<p>Sent to the email address after registration</p>"
-          }
-        ]
-      }
-    },
-    "error": {
-      "fields": {
-        "401": [
-          {
-            "group": "401",
-            "optional": false,
-            "field": "-",
-            "description": "<p>Otp is wrong</p>"
-          }
-        ],
-        "404": [
-          {
-            "group": "404",
-            "optional": false,
-            "field": "-",
-            "description": "<p>Email Address is not registered</p>"
-          }
-        ]
-      }
-    },
-    "version": "0.0.0",
-    "filename": "./src/main/java/com/neo/Controller/UserController.java",
-    "groupTitle": "Auth",
-    "name": "GetUserOtp"
-  },
-  {
-    "type": "get",
     "url": "/user/resetPassword/",
     "title": "Password token",
     "description": "<p>Generate token for password resetting. This token will be sent to the provided email address.</p>",
@@ -421,6 +370,54 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/user/OTP",
+    "title": "Email Verification",
+    "description": "<p>Verify email address after registration</p>",
+    "group": "Auth",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request:-",
+          "content": "{\n\"otp\": \"OTP sent to the email address after registration\",\n//for seller account\n\"address\":{\"postalCode\": \"Pincode/Zipcode of the printing company's address\", \"addressLine\":\"Address Line\"},\n\"paypal\":\"Paypal email address\",\n\"ltime\":\"Lead time for an order completion\",\n\"price\":\"Default price for card printing (for cards uploaded by users)\",\n//Below are optional\n\"description\": \"Seller's company's description\",\n\"name\":\"Name used on the dashboard\",\n\"phone\":\"Phone number\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid data.</p>"
+          }
+        ],
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "-",
+            "description": "<p>OTP is wrong</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Email Address is not registered</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/UserController.java",
+    "groupTitle": "Auth",
+    "name": "PostUserOtp"
+  },
+  {
+    "type": "post",
     "url": "/user/resetPassword/",
     "title": "Reset password",
     "description": "<p>Reset Password</p>",
@@ -540,7 +537,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response",
-          "content": "{\n\"name\":\"Card name\",\n\"sid\":\"seller id\",\n\"sname\":\"seller name\",\n\"id\":card id,\n\"colors\":[card colors in hexadecimal],\n\"finishes\":[paper finish names],\n\"papers\":[paper quality names],\n\"images\":[card images],\n\"subCategories\":[card sub-categories],\n\"price\":card price,\n\"category\": card category,\n\"side\": 1->front side; 2->back side,\n\"discountedPrice\":price after any discount. Null if no discount available\n}",
+          "content": "{\n\"name\":\"Card name\",\n\"sid\":\"seller id\",\n\"sname\":\"seller name\",\n\"id\":card id,\n\"finishes\":[paper finish names],\n\"papers\":[paper quality names],\n\"images\":[{\n\"id\":\"Image id.\",\n\"fileName\":\"Image file name.\",\n\"color\":\"Color variant of the card design through which the image is constructed.\"\n}],\n\"subCategories\":[card sub-categories],\n\"price\":card price,\n\"category\": card category,\n\"side\": 1->front side; 2->back side,\n\"discountedPrice\":price after any discount. Null if no discount available\n}",
           "type": "json"
         }
       ]
@@ -653,7 +650,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Response",
-          "content": "[{\n\"name\":\"Card name\",\n\"sid\":\"seller id\",\n\"sname\":\"seller name\",\n\"id\":card id,\n\"colors\":[card colors in hexadecimal],\n\"images\":[card images],\n\"price\":card price,\n\"discountedPrice\":price after any discount. Null if no discount available,\n\"distance\": <If lat-lon provided with request, else null> {\n\"value\": distance of seller from the lat-lon provided,\n\"unit\":\"Km\"}\n}]",
+          "content": "[{\n\"name\":\"Card name\",\n\"sid\":\"seller id\",\n\"sname\":\"seller name\",\n\"id\":\"card id\",\n\"images\":[{\n\"id\":\"Image id.\",\n\"fileName\":\"Image file name.\",\n\"color\":\"Color variant of the card design through which the image is constructed.\"\n}],\n\"price\":\"Card price\",\n\"discountedPrice\":\"Price after any discount. Null if no discount available,\"\n\"distance\": \"If lat-lon provided with request, else null\" {\n\"value\": \"Distance of the seller from the lat-lon provided.\",\n\"unit\":\"Km\"\n}\n}]",
           "type": "json"
         }
       ]
@@ -845,6 +842,138 @@ define({ "api": [
     "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
     "groupTitle": "Cards",
     "name": "PostSellerCardNew"
+  },
+  {
+    "type": "get",
+    "url": "/customer/cart/remove",
+    "title": "Remove cartItem.",
+    "description": "<p>Remove a card design from cart.</p>",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "cartItemId",
+            "description": "<p>CartItem's id to remove.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid input data.</p>"
+          }
+        ],
+        "503": [
+          {
+            "group": "503",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image Service(S3) is not working.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Customer/CartController.java",
+    "groupTitle": "Cart",
+    "name": "GetCustomerCartRemove"
+  },
+  {
+    "type": "post",
+    "url": "/customer/cart/add",
+    "title": "New cart item",
+    "description": "<p>Add a new card design to cart.</p>",
+    "group": "Cart",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request:",
+          "content": "{\n\"sellerId\": \"Id of the printing company to which this card design is assigned if customer is using a custom card.\",\n\"fItem\":\"details of front card design\" {\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\"\n},\n\"bItem\":\"details of back card design\" {\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\",\n//qr is optional\n\"qr\":\"qr content\",\n\"qrs\":\"qr image size in % of card's width\"\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid input data.</p>"
+          }
+        ],
+        "503": [
+          {
+            "group": "503",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image Service(S3) is not working.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Customer/CartController.java",
+    "groupTitle": "Cart",
+    "name": "PostCustomerCartAdd"
+  },
+  {
+    "type": "post",
+    "url": "/customer/cart/update",
+    "title": "Update cart item",
+    "description": "<p>Update a card design from cart.</p>",
+    "group": "Cart",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request:",
+          "content": "{\n\"id\":\"CartItem id\",\n//All below parameters are optional. Only the provided parameters will be updated.\n\"fItem\":\"details of front card design\" {\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"image\":{\"id\":\"Background image id\"},\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\"\n},\n\"bItem\":\"details of back card design\" {\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\",\n//qr is optional\n\"qr\":\"qr content\",\n\"qrs\":\"qr image size in % of card's width\"\n}\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid input data.</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid cartItem id.</p>"
+          }
+        ],
+        "503": [
+          {
+            "group": "503",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image Service(S3) is not working.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Customer/CartController.java",
+    "groupTitle": "Cart",
+    "name": "PostCustomerCartUpdate"
   },
   {
     "type": "get",
@@ -1049,5 +1178,101 @@ define({ "api": [
     "filename": "./src/main/java/com/neo/Controller/PaperController.java",
     "groupTitle": "Paper_Quality",
     "name": "GetPaper"
+  },
+  {
+    "type": "get",
+    "url": "/seller",
+    "title": "Seller info.",
+    "description": "<p>Get seller dashboard information.</p>",
+    "group": "Seller_Dashboard",
+    "success": {
+      "examples": [
+        {
+          "title": "Response:-",
+          "content": "{\n\"address\":{\n\"postalCode\": Pincode/Zipcode of the printing company's address,\n\"addressLine\":Address Line,\n\"city\":City,\n\"state\":State,\n\"country\":Country\n},\n\"paypal\":Paypal email address,\n\"ltime\": Lead time for an order completion,\n\"price\": Default price for card printing (for cards uploaded by users),\n\"description\": Seller's company's description,\n\"name\":Name used on the dashboard,\n\"reviews\":[{\n\"review\":Customer's review,\n\"reviewer\":Customer's name\",\n\"rating\":Rating based on 5 stars\n}]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid data.</p>"
+          }
+        ],
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "-",
+            "description": "<p>OTP is wrong</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Email Address is not registered</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/SellerController.java",
+    "groupTitle": "Seller_Dashboard",
+    "name": "GetSeller"
+  },
+  {
+    "type": "post",
+    "url": "/seller/update",
+    "title": "Update seller.",
+    "description": "<p>Update dashboard information of the seller.</p>",
+    "group": "Seller_Dashboard",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request:-",
+          "content": "{\n//Below are optional\n\"address\":{\"postalCode\": \"Pincode/Zipcode of the printing company's address\", \"addressLine\":\"Address Line\"},\n\"paypal\":\"Paypal email address\",\n\"ltime\":\"Lead time for an order completion\",\n\"price\":\"Default price for card printing (for cards uploaded by users)\",\n\"description\": \"Seller's company's description\",\n\"name\":\"Name used on the dashboard\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid data.</p>"
+          }
+        ],
+        "401": [
+          {
+            "group": "401",
+            "optional": false,
+            "field": "-",
+            "description": "<p>OTP is wrong</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Email Address is not registered</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/SellerController.java",
+    "groupTitle": "Seller_Dashboard",
+    "name": "PostSellerUpdate"
   }
 ] });
