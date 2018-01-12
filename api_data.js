@@ -133,6 +133,18 @@ define({ "api": [
         }
       ]
     },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid pincode/addressLine combination.</p>"
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "./src/main/java/com/neo/Controller/AddressController.java",
     "groupTitle": "Address",
