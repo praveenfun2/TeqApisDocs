@@ -99,6 +99,46 @@
     "name": "PostAdminApiUpdatePaypal"
   },
   {
+    "type": "post",
+    "url": "/address/get",
+    "title": "Get Address",
+    "description": "<p>Get complete address using postal code &amp; addressline.</p>",
+    "group": "Address",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "postalCode",
+            "description": "<p>Pincode/Zipcode.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "addressLine",
+            "description": "<p>Address Line to identify a location within a city.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response:-",
+          "content": "{\n\"postalCode\": Pincode/Zipcode,\n\"addressLine\": Address Line,\n\"city\": City,\n\"state\": State,\n\"country\": Country\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/AddressController.java",
+    "groupTitle": "Address",
+    "name": "PostAddressGet"
+  },
+  {
     "type": "get",
     "url": "/ad/rate",
     "title": "Advertisement",
@@ -378,7 +418,7 @@
       "examples": [
         {
           "title": "Request:-",
-          "content": "{\n\"otp\": \"OTP sent to the email address after registration\",\n//for seller account\n\"address\":{\"postalCode\": \"Pincode/Zipcode of the printing company's address\", \"addressLine\":\"Address Line\"},\n\"paypal\":\"Paypal email address\",\n\"ltime\":\"Lead time for an order completion\",\n\"price\":\"Default price for card printing (for cards uploaded by users)\",\n//Below are optional\n\"description\": \"Seller's company's description\",\n\"name\":\"Name used on the dashboard\",\n\"phone\":\"Phone number\"\n}",
+          "content": "{\n\"id\":Email address of the user,\n\"otp\": \"OTP sent to the email address after registration\",\n//for seller account\n\"address\":{\"postalCode\": \"Pincode/Zipcode of the printing company's address\", \"addressLine\":\"Address Line\"},\n\"paypal\":\"Paypal email address\",\n\"ltime\":\"Lead time for an order completion\",\n\"price\":\"Default price for card printing (for cards uploaded by users)\",\n//Below are optional\n\"description\": \"Seller's company's description\",\n\"name\":\"Name used on the dashboard\",\n\"phone\":\"Phone number\"\n}",
           "type": "json"
         }
       ]
