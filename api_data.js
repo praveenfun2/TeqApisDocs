@@ -258,12 +258,20 @@ define({ "api": [
     },
     "error": {
       "fields": {
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Email id not found.</p>"
+          }
+        ],
         "503": [
           {
             "group": "503",
             "optional": false,
             "field": "-",
-            "description": "<p>Email Service is not working</p>"
+            "description": "<p>Email Service is not working.</p>"
           }
         ]
       }
@@ -430,7 +438,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Request:-",
-          "content": "{\n\"id\":Email address of the user,\n\"otp\": \"OTP sent to the email address after registration\",\n//for seller account\n\"address\":{\"postalCode\": \"Pincode/Zipcode of the printing company's address\", \"addressLine\":\"Address Line\"},\n\"paypal\":\"Paypal email address\",\n\"ltime\":\"Lead time for an order completion\",\n\"price\":\"Default price for card printing (for cards uploaded by users)\",\n//Below are optional\n\"description\": \"Seller's company's description\",\n\"name\":\"Name used on the dashboard\",\n\"phone\":\"Phone number\"\n}",
+          "content": "{\n\"id\":Email address of the user,\n\"otp\": \"OTP sent to the email address after registration\",\n//for seller account\n\"address\":{\"postalCode\": \"Pincode/Zipcode of the printing company's address\", \"addressLine\":\"Address Line\"},\n\"paypal\":\"Paypal email address\",\n\"ltime\":\"Lead time for an order completion\",\n\"price\":\"Default price for card printing (for cards uploaded by users)\",\n\"phone\":\"Phone number\"\n//Below are optional\n\"description\": \"Seller's company's description\",\n\"name\":\"Name used on the dashboard\"     *\n}",
           "type": "json"
         }
       ]
@@ -1213,6 +1221,113 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/seller/finish",
+    "title": "Seller paper finishes.",
+    "description": "<p>Get all the paper finishes supported by the seller.</p>",
+    "group": "Paper_Finish",
+    "success": {
+      "examples": [
+        {
+          "title": "Example:-",
+          "content": "[{\n    \"id\": Paper finish id,\n    \"price\" : Assigned price,\n    \"des\": Description of the paper finish,\n    \"name\": Paper finish name\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/FinishController.java",
+    "groupTitle": "Paper_Finish",
+    "name": "GetSellerFinish"
+  },
+  {
+    "type": "get",
+    "url": "/seller/finish/new",
+    "title": "Price for paper finish.",
+    "description": "<p>Set the price for paper finish.</p>",
+    "group": "Paper_Finish",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "fid",
+            "description": "<p>Paper finish id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "price",
+            "description": "<p>Paper finish price.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>User is forbidden.</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Paper finish not found (invalid fid).</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/FinishController.java",
+    "groupTitle": "Paper_Finish",
+    "name": "GetSellerFinishNew"
+  },
+  {
+    "type": "get",
+    "url": "/seller/finish/remove",
+    "title": "Delete price.",
+    "description": "<p>Remove the paper finish from supported paper finishes.</p>",
+    "group": "Paper_Finish",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "fid",
+            "description": "<p>Paper finish id.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Paper finish not found (invalid fid).</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/FinishController.java",
+    "groupTitle": "Paper_Finish",
+    "name": "GetSellerFinishRemove"
+  },
+  {
+    "type": "get",
     "url": "/paper",
     "title": "Paper Qualities",
     "description": "<p>All paper qualities list.</p>",
@@ -1230,6 +1345,121 @@ define({ "api": [
     "filename": "./src/main/java/com/neo/Controller/PaperController.java",
     "groupTitle": "Paper_Quality",
     "name": "GetPaper"
+  },
+  {
+    "type": "get",
+    "url": "/seller/paper",
+    "title": "Seller paper qualities.",
+    "description": "<p>Get all the paper qualities supported by the seller.</p>",
+    "group": "Paper_Quality",
+    "success": {
+      "examples": [
+        {
+          "title": "Example:-",
+          "content": "[{\n    \"id\": Paper quality id,\n    \"price\" : Assigned price,\n    \"des\": Description of the paper quality,\n    \"name\": Paper quality name\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/PaperController.java",
+    "groupTitle": "Paper_Quality",
+    "name": "GetSellerPaper"
+  },
+  {
+    "type": "get",
+    "url": "/seller/paper/new",
+    "title": "Price for paper quality.",
+    "description": "<p>Set the price for paper quality.</p>",
+    "group": "Paper_Quality",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "pqid",
+            "description": "<p>Paper quality id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "price",
+            "description": "<p>Paper quality price.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>User is forbidden.</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Paper quality not found (invalid pqid).</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/PaperController.java",
+    "groupTitle": "Paper_Quality",
+    "name": "GetSellerPaperNew"
+  },
+  {
+    "type": "get",
+    "url": "/seller/paper/remove",
+    "title": "Delete price.",
+    "description": "<p>Remove the paper quality from supported paper qualities.</p>",
+    "group": "Paper_Quality",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "pqid",
+            "description": "<p>Paper quality id.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>User is forbidden.</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Paper quality not found (invalid pqid).</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/PaperController.java",
+    "groupTitle": "Paper_Quality",
+    "name": "GetSellerPaperRemove"
   },
   {
     "type": "get",
@@ -1254,14 +1484,6 @@ define({ "api": [
             "optional": false,
             "field": "-",
             "description": "<p>Invalid data.</p>"
-          }
-        ],
-        "401": [
-          {
-            "group": "401",
-            "optional": false,
-            "field": "-",
-            "description": "<p>OTP is wrong</p>"
           }
         ],
         "404": [
@@ -1302,14 +1524,6 @@ define({ "api": [
             "optional": false,
             "field": "-",
             "description": "<p>Invalid data.</p>"
-          }
-        ],
-        "401": [
-          {
-            "group": "401",
-            "optional": false,
-            "field": "-",
-            "description": "<p>OTP is wrong</p>"
           }
         ],
         "404": [
