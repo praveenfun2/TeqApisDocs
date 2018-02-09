@@ -557,6 +557,34 @@
     "type": "",
     "url": "",
     "version": "0.0.0",
+    "filename": "./doc/doc/main.js",
+    "group": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_doc_main_js",
+    "groupTitle": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_doc_main_js",
+    "name": ""
+  },
+  {
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "optional": false,
+            "field": "varname1",
+            "description": "<p>No type.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "varname2",
+            "description": "<p>With type.</p>"
+          }
+        ]
+      }
+    },
+    "type": "",
+    "url": "",
+    "version": "0.0.0",
     "filename": "./doc/main.js",
     "group": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_main_js",
     "groupTitle": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_main_js",
@@ -902,6 +930,119 @@
     "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
     "groupTitle": "Cards",
     "name": "PostSellerCardNew"
+  },
+  {
+    "type": "post",
+    "url": "/seller/card/promotion",
+    "title": "Card promotion.",
+    "description": "<p>Provide card discount prices.</p>",
+    "group": "Cards",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request:-",
+          "content": "{\n\"name\": Name of the promotion,\n\"discount\": Discount percentage,\n\"sdate\": Promotion start date (yyyy-MM-dd),\n\"edate\": Promotion end date (yyyy-MM-dd),\n\"cids\": Card id array to apply the promotion to\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "PostSellerCardPromotion"
+  },
+  {
+    "type": "post",
+    "url": "/seller/card/update",
+    "title": "Update Card",
+    "description": "<p>Update an existing card design</p>",
+    "group": "Cards",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Card id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "layout",
+            "description": "<p>1-&gt;Landscape, 2-&gt;Portrait.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Float",
+            "optional": false,
+            "field": "price",
+            "description": "<p>Price of the card. Should be only upto 2 decimal places precise.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Card name.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "cat",
+            "description": "<p>Category id allotted to the card. Applicable only for front side card design.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long[]",
+            "optional": false,
+            "field": "subcat",
+            "description": "<p>Sub-category ids allotted to the card. Applicable only for front side card design.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long[]",
+            "optional": false,
+            "field": "paper",
+            "description": "<p>Seller specific paper Quality ids allotted to the card. Applicable only for front side card design.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Long[]",
+            "optional": false,
+            "field": "finish",
+            "description": "<p>Seller specific paper Finish ids allotted to the card. Applicable only for front side card design.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>The request params are malformed.</p>"
+          }
+        ],
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Seller is not forbidden to update the card.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "PostSellerCardUpdate"
   },
   {
     "type": "get",
