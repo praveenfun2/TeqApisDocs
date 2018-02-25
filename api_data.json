@@ -152,8 +152,52 @@
   },
   {
     "type": "get",
-    "url": "/ad/rate",
+    "url": "/ad",
     "title": "Advertisement",
+    "group": "Advertisement",
+    "description": "<p>Get advertisement posters for a location.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Double",
+            "optional": false,
+            "field": "lat",
+            "description": "<p>Latitude of the current location.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Double",
+            "optional": false,
+            "field": "lng",
+            "description": "<p>Longitude of the current location.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String[]",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Advertisement poster filenames.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/AdvertisementController.java",
+    "groupTitle": "Advertisement",
+    "name": "GetAd"
+  },
+  {
+    "type": "get",
+    "url": "/ad/rate",
+    "title": "Advertisement Rates",
     "group": "Advertisement",
     "description": "<p>Get advertisement commission rates($) for different coverage of operation.</p>",
     "success": {
@@ -179,6 +223,13 @@
             "optional": false,
             "field": "country",
             "description": "<p>Country coverage commission.</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Float",
+            "optional": false,
+            "field": "international",
+            "description": "<p>International coverage commission.</p>"
           }
         ]
       }
@@ -236,6 +287,46 @@
     "filename": "./src/main/java/com/neo/Controller/Admin/AdvertisementController.java",
     "groupTitle": "Advertisement",
     "name": "GetAdminAdUpdate"
+  },
+  {
+    "type": "post",
+    "url": "/seller/ad/new",
+    "title": "Upload advertisement.",
+    "description": "<p>Upload advertisement image. This will be shown to different users publicly according to the scheme chosen.</p>",
+    "group": "Advertisement",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Example:-",
+          "content": "[{\n    \"poster\": Base64 image of the ad,\n    \"type\": Coverage type:- 1->City, 2->State, 3->Country, 4->International,\n    \"name\": Advertisement name,\n    \"sdate\": Starting date of the ad in \"YYYY-MM-DD\" format,\n    \"edate\": Ending date of the ad in \"YYYY-MM-DD\" format\n}]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Either the dates or the type is not correct.</p>"
+          }
+        ],
+        "402": [
+          {
+            "group": "402",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Payment Service not working.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Seller/AdvertisementController.java",
+    "groupTitle": "Advertisement",
+    "name": "PostSellerAdNew"
   },
   {
     "type": "get",
@@ -557,34 +648,6 @@
     "type": "",
     "url": "",
     "version": "0.0.0",
-    "filename": "./doc/doc/main.js",
-    "group": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_doc_main_js",
-    "groupTitle": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_doc_main_js",
-    "name": ""
-  },
-  {
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "optional": false,
-            "field": "varname1",
-            "description": "<p>No type.</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "varname2",
-            "description": "<p>With type.</p>"
-          }
-        ]
-      }
-    },
-    "type": "",
-    "url": "",
-    "version": "0.0.0",
     "filename": "./doc/main.js",
     "group": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_main_js",
     "groupTitle": "C__Users_praveenfun2_Desktop_TeqnicardApis_doc_main_js",
@@ -750,6 +813,50 @@
   },
   {
     "type": "get",
+    "url": "/customer/card/remove",
+    "title": "Delete user card",
+    "description": "<p>Delete a card design uploaded by customer.</p>",
+    "group": "Cards",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Long",
+            "optional": false,
+            "field": "cid",
+            "description": "<p>card id.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Forbidden.</p>"
+          }
+        ],
+        "404": [
+          {
+            "group": "404",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid id.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Customer/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "GetCustomerCardRemove"
+  },
+  {
+    "type": "get",
     "url": "/seller/card",
     "title": "Card Designs.",
     "description": "<p>Get all the card designs uploaded by the seller.</p>",
@@ -826,6 +933,55 @@
   },
   {
     "type": "post",
+    "url": "/customer/card/new",
+    "title": "New user card",
+    "description": "<p>Upload a new card design by customer.</p>",
+    "group": "Cards",
+    "parameter": {
+      "examples": [
+        {
+          "title": "Request:",
+          "content": "{\n\"encodedImage\": Base64 encoded image,\n\"landscape\": True/false\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Response:- {",
+          "content": "    \"id\": Card Image id,\n    \"card\":{\n        \"id\": card id\n    }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "400": [
+          {
+            "group": "400",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Invalid input data.</p>"
+          }
+        ],
+        "503": [
+          {
+            "group": "503",
+            "optional": false,
+            "field": "-",
+            "description": "<p>Image Service(S3) is not working.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "./src/main/java/com/neo/Controller/Customer/CardsController.java",
+    "groupTitle": "Cards",
+    "name": "PostCustomerCardNew"
+  },
+  {
+    "type": "post",
     "url": "/seller/card/new",
     "title": "New Card",
     "description": "<p>Upload a new card desgin.</p>",
@@ -849,10 +1005,10 @@
           },
           {
             "group": "Parameter",
-            "type": "Integer",
+            "type": "Boolean",
             "optional": false,
-            "field": "layout",
-            "description": "<p>1-&gt;Landscape, 2-&gt;Portrait.</p>"
+            "field": "landscape.",
+            "description": ""
           },
           {
             "group": "Parameter",
@@ -1098,7 +1254,7 @@
       "examples": [
         {
           "title": "Request:",
-          "content": "{\n\"sellerId\": \"Id of the printing company to which this card design is assigned if customer is using a custom card.\",\n\"fItem\":\"details of front card design\" {\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\"\n},\n\"bItem\":\"details of back card design\" {\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\",\n//qr is optional\n\"qr\":\"qr content\",\n\"qrs\":\"qr image size in % of card's width\"\n}\n}",
+          "content": "{\n\"sellerId\": \"Id of the printing company to which this card design is assigned if customer is using a custom card.\",\n\"fItem\":\"details of front card design\" {\n\"customCard\" : \"True if customer uses custom image as card image\"\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\"\n},\n\"bItem\":\"details of back card design\" {\n\"image\":{\"id\":\"Background image id\"},\n\"textBoxes\":[{\n\"content\":\"content of the text box\",\n\"x\":\"x - coordinate w.r.t to the card's top-left corner in % of card's width\",\n\"y\":\"y - coordinate w.r.t to the card's top-left corner in % of card's height\",\n\"w\":\"textBox's width w.r.t to the card's width in %\",\n\"h\":\"textBox's height w.r.t to the card's width in % height\"\n}],\n//logo is optional\n\"logo\":\"base64 encoded logo image file\",\n\"lx\":\"logo's x coordinate\",\n\"ly\":\"logo's y coordinate\",\n\"lw\":\"logo's width\",\n\"lh\":\"logo's height\",\n//qr is optional\n\"qr\":\"qr content\",\n\"qrs\":\"qr image size in % of card's width\"\n}\n}",
           "type": "json"
         }
       ]
@@ -1370,7 +1526,7 @@
       "examples": [
         {
           "title": "Example:-",
-          "content": "[{\n    \"id\": Paper finish id,\n    \"price\" : Assigned price,\n    \"des\": Description of the paper finish,\n    \"name\": Paper finish name\n}]",
+          "content": "[{\n    \"id\": Paper finish id,\n    \"price\" : Assigned price,\n    \"des\": Description of the paper finish,\n    \"name\": Paper finish name,\n    \"canDelete\": True/False\n}]",
           "type": "json"
         }
       ]
@@ -1452,6 +1608,14 @@
     },
     "error": {
       "fields": {
+        "403": [
+          {
+            "group": "403",
+            "optional": false,
+            "field": "-",
+            "description": "<p>The paper finish is used in the card design.</p>"
+          }
+        ],
         "404": [
           {
             "group": "404",
@@ -1497,7 +1661,7 @@
       "examples": [
         {
           "title": "Example:-",
-          "content": "[{\n    \"id\": Paper quality id,\n    \"price\" : Assigned price,\n    \"des\": Description of the paper quality,\n    \"name\": Paper quality name\n}]",
+          "content": "[{\n    \"id\": Paper quality id,\n    \"price\" : Assigned price,\n    \"des\": Description of the paper quality,\n    \"name\": Paper quality name,\n    \"canDelete\": True/False\n}]",
           "type": "json"
         }
       ]
@@ -1584,7 +1748,7 @@
             "group": "403",
             "optional": false,
             "field": "-",
-            "description": "<p>User is forbidden.</p>"
+            "description": "<p>The paper quality is used in the card design.</p>"
           }
         ],
         "404": [
